@@ -712,6 +712,7 @@ class Engine with Events implements IEngine {
         SignClientEvent.SESSION_PROPOSAL.value,
         SignClientEventParams<RequestSessionPropose>(
           id: id,
+          topic: topic,
           params: request.params!,
         ),
       );
