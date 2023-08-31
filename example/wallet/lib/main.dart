@@ -73,11 +73,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _activePage = _pageController.initialPage;
     _enableScanView = false;
-    _initialize();
+    _initialize(context);
     super.initState();
   }
 
-  void _initialize() async {
+  void _initialize(BuildContext context) async {
     _initializing = true;
     _signClient = await SignClient.init(
       projectId: "73801621aec60dfaa2197c7640c15858",
@@ -172,6 +172,7 @@ class _HomePageState extends State<HomePage> {
             int.parse(eventData.params!.chainId.split(':').last),
             session,
             ethereumTransaction,
+            context,
           );
         case Eip155Methods.ETH_SEND_TRANSACTION:
           final ethereumTransaction = WCEthereumTransaction.fromJson(
@@ -181,6 +182,7 @@ class _HomePageState extends State<HomePage> {
             int.parse(eventData.params!.chainId.split(':').last),
             session,
             ethereumTransaction,
+            context,
           );
         case Eip155Methods.ETH_SEND_RAW_TRANSACTION:
           break;
@@ -376,7 +378,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 TextButton(
                   style: TextButton.styleFrom(
-                    primary: Colors.white,
+                    foregroundColor: Colors.white,
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
                   onPressed: () {
@@ -397,12 +399,14 @@ class _HomePageState extends State<HomePage> {
     int chainId,
     SessionStruct session,
     WCEthereumTransaction ethereumTransaction,
+    BuildContext context,
   ) {
     _onTransaction(
       id: id,
       session: session,
       ethereumTransaction: ethereumTransaction,
       title: 'Sign Transaction',
+      context: context,
       onConfirm: () async {
         final account = _getAccountFromAddr(ethereumTransaction.from);
         final privateKey = HDKeyUtils.getPrivateKey(account.mnemonic);
@@ -445,12 +449,14 @@ class _HomePageState extends State<HomePage> {
     int chainId,
     SessionStruct session,
     WCEthereumTransaction ethereumTransaction,
+    BuildContext context,
   ) {
     _onTransaction(
       id: id,
       session: session,
       ethereumTransaction: ethereumTransaction,
       title: 'Send Transaction',
+      context: context,
       onConfirm: () async {
         final account = _getAccountFromAddr(ethereumTransaction.from);
         final privateKey = HDKeyUtils.getPrivateKey(account.mnemonic);
@@ -495,10 +501,13 @@ class _HomePageState extends State<HomePage> {
     required String title,
     required VoidCallback onConfirm,
     required VoidCallback onReject,
-  }) async {
+    required BuildContext context,
+  }) {
     BigInt gasPrice = BigInt.parse(ethereumTransaction.gasPrice ?? '0');
     if (gasPrice == BigInt.zero) {
-      gasPrice = await _web3client.estimateGas();
+      _web3client.estimateGas().then((value) {
+        gasPrice = value;
+      });
     }
     showDialog(
       context: context,
@@ -571,7 +580,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Expanded(
                     child: Text(
-                      '${(EtherAmount.fromUnitAndValue(EtherUnit.wei, ethereumTransaction.maxFeePerGas ?? ethereumTransaction.gasPrice).getInEther) * BigInt.parse(ethereumTransaction.gas ?? '0')} ETH',
+                      '${(EtherAmount.fromBase10String(EtherUnit.wei, ethereumTransaction.maxFeePerGas ?? ethereumTransaction.gasPrice!).getInEther) * BigInt.parse(ethereumTransaction.gas ?? '0')} ETH',
                       style: const TextStyle(fontSize: 16.0),
                     ),
                   ),
@@ -594,7 +603,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Expanded(
                     child: Text(
-                      '${EtherAmount.fromUnitAndValue(EtherUnit.wei, ethereumTransaction.value).getInEther} ETH',
+                      '${EtherAmount.fromBase10String(EtherUnit.wei, ethereumTransaction.value!).getInEther} ETH',
                       style: const TextStyle(fontSize: 16.0),
                     ),
                   ),
@@ -629,7 +638,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(
-                      primary: Colors.white,
+                      foregroundColor: Colors.white,
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: onConfirm,
@@ -640,7 +649,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(
-                      primary: Colors.white,
+                      foregroundColor: Colors.white,
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: onReject,
@@ -724,7 +733,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(
-                      primary: Colors.white,
+                      foregroundColor: Colors.white,
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () async {
@@ -753,8 +762,8 @@ class _HomePageState extends State<HomePage> {
                         );
                       } else {
                         final encodedMessage = hexToBytes(message.data);
-                        final signedData =
-                            await creds.signPersonalMessage(encodedMessage);
+                        final signedData = creds
+                            .signPersonalMessageToUint8List(encodedMessage);
                         signedDataHex = bytesToHex(signedData, include0x: true);
                       }
                       debugPrint('SIGNED $signedDataHex');
@@ -779,7 +788,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(
-                      primary: Colors.white,
+                      foregroundColor: Colors.white,
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () {

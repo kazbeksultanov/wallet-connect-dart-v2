@@ -106,7 +106,7 @@ class _ConnectPageState extends State<ConnectPage> {
                               });
                             },
                             style: TextButton.styleFrom(
-                              primary: Colors.white,
+                              foregroundColor: Colors.white,
                               textStyle:
                                   const TextStyle(fontWeight: FontWeight.w500),
                             ),
@@ -165,7 +165,7 @@ class _ConnectPageState extends State<ConnectPage> {
                     _qrScanHandler(_uriController.text);
                   },
                   style: TextButton.styleFrom(
-                    primary: Colors.white,
+                    foregroundColor: Colors.white,
                     textStyle: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                   child: const Padding(

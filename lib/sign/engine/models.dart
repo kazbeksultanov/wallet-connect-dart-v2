@@ -68,11 +68,13 @@ class SessionSettleParams {
 @JsonSerializable()
 class SessionConnectParams {
   final ProposalRequiredNamespaces requiredNamespaces;
+  final ProposalRequiredNamespaces optionalNamespaces;
   final String? pairingTopic;
   final List<RelayerProtocolOptions>? relays;
 
   SessionConnectParams({
     required this.requiredNamespaces,
+    required this.optionalNamespaces,
     this.pairingTopic,
     this.relays,
   });

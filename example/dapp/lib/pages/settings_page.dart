@@ -6,9 +6,9 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         CustomAppBar(title: 'Settings'),
         Divider(height: 1.0),
       ],

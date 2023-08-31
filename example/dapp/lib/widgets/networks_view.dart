@@ -95,7 +95,7 @@ class _NetworksViewState extends State<NetworksView> {
             child: TextButton(
               onPressed: widget.onConnect,
               style: TextButton.styleFrom(
-                primary: Colors.white,
+                foregroundColor: Colors.white,
                 textStyle: const TextStyle(fontWeight: FontWeight.w500),
               ),
               child: const Padding(

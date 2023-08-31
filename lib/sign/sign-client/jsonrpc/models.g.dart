@@ -75,6 +75,11 @@ RequestSessionPropose _$RequestSessionProposeFromJson(
         (k, e) => MapEntry(
             k, ProposalRequiredNamespace.fromJson(e as Map<String, dynamic>)),
       ),
+      optionalNamespaces:
+          (json['optionalNamespaces'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k, ProposalRequiredNamespace.fromJson(e as Map<String, dynamic>)),
+      ),
       proposer:
           ProposalProposer.fromJson(json['proposer'] as Map<String, dynamic>),
     );
@@ -85,6 +90,8 @@ Map<String, dynamic> _$RequestSessionProposeToJson(
       'relays': instance.relays.map((e) => e.toJson()).toList(),
       'requiredNamespaces':
           instance.requiredNamespaces.map((k, e) => MapEntry(k, e.toJson())),
+      'optionalNamespaces':
+          instance.optionalNamespaces.map((k, e) => MapEntry(k, e.toJson())),
       'proposer': instance.proposer.toJson(),
     };
 

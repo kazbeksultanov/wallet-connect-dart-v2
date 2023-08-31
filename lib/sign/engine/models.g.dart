@@ -65,6 +65,11 @@ SessionConnectParams _$SessionConnectParamsFromJson(
         (k, e) => MapEntry(
             k, ProposalRequiredNamespace.fromJson(e as Map<String, dynamic>)),
       ),
+      optionalNamespaces:
+          (json['optionalNamespaces'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k, ProposalRequiredNamespace.fromJson(e as Map<String, dynamic>)),
+      ),
       pairingTopic: json['pairingTopic'] as String?,
       relays: (json['relays'] as List<dynamic>?)
           ?.map(
@@ -77,6 +82,8 @@ Map<String, dynamic> _$SessionConnectParamsToJson(
   final val = <String, dynamic>{
     'requiredNamespaces':
         instance.requiredNamespaces.map((k, e) => MapEntry(k, e.toJson())),
+    'optionalNamespaces':
+        instance.optionalNamespaces.map((k, e) => MapEntry(k, e.toJson())),
   };
 
   void writeNotNull(String key, dynamic value) {

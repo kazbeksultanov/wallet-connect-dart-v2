@@ -39,6 +39,7 @@ class RequestArguments<T> {
 
 abstract class JsonRpcPayload<T> {
   int get id;
+
   String get jsonrpc;
 
   Map<String, dynamic> toJson();
@@ -88,7 +89,7 @@ class JsonRpcResult<T extends Object?> implements JsonRpcResponse<T> {
   @override
   final String jsonrpc;
   final T? result;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final Object? Function(T value)? resultToJson;
 
   const JsonRpcResult({

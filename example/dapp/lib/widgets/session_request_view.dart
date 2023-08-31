@@ -180,7 +180,7 @@ class _NamespaceViewState extends State<NamespaceView> {
                             method: method,
                           ),
                           style: TextButton.styleFrom(
-                            primary: Colors.white,
+                            foregroundColor: Colors.white,
                             backgroundColor:
                                 Theme.of(context).colorScheme.secondary,
                             textStyle:

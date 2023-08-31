@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:wallet_connect_dart_v2/core/models/app_metadata.dart';
 import 'package:wallet_connect_dart_v2/core/relayer/models.dart';
@@ -99,10 +98,13 @@ class ProposalRequestStruct {
 
   final ProposalRequiredNamespaces requiredNamespaces;
 
+  final ProposalRequiredNamespaces optionalNamespaces;
+
   ProposalRequestStruct({
     required this.relays,
     required this.proposer,
     required this.requiredNamespaces,
+    required this.optionalNamespaces,
   });
 
   factory ProposalRequestStruct.fromJson(Map<String, dynamic> json) =>
@@ -125,6 +127,7 @@ class ProposalStruct extends ProposalRequestStruct {
     required super.relays,
     required super.proposer,
     required super.requiredNamespaces,
+    required super.optionalNamespaces,
     this.pairingTopic,
   });
 
@@ -135,19 +138,19 @@ class ProposalStruct extends ProposalRequestStruct {
   Map<String, dynamic> toJson() => _$ProposalStructToJson(this);
 }
 
-// 
+//
 // class ProposalStore {
-//   
+//
 //   final int id;
-//   
+//
 //   final int expiry;
-//   
+//
 //   final List<RelayerProtocolOptions> relays;
-//   
+//
 //   final Map<String, dynamic> proposer;
-//   
+//
 //   final Map<String, dynamic> requiredNamespaces;
-//   
+//
 //   final String? pairingTopic;
 
 //   ProposalStore(this.id, this.expiry, this.relays, this.proposer,

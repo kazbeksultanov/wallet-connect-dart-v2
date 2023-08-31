@@ -80,6 +80,7 @@ class Engine with Events implements IEngine {
 
     final proposal = ProposalRequestStruct(
       requiredNamespaces: params.requiredNamespaces,
+      optionalNamespaces: params.optionalNamespaces,
       relays: params.relays ??
           [RelayerProtocolOptions(protocol: RELAYER_DEFAULT_PROTOCOL)],
       proposer: ProposalProposer(
@@ -137,6 +138,7 @@ class Engine with Events implements IEngine {
         relays: proposal.relays,
         proposer: proposal.proposer,
         requiredNamespaces: proposal.requiredNamespaces,
+        optionalNamespaces: proposal.optionalNamespaces,
       ),
     );
     return EngineConnection(
@@ -696,6 +698,7 @@ class Engine with Events implements IEngine {
       );
       _isValidConnect(SessionConnectParams(
         requiredNamespaces: request.params!.requiredNamespaces,
+        optionalNamespaces: request.params!.optionalNamespaces,
         relays: request.params!.relays,
       ));
       final expiry = calcExpiry(ttl: FIVE_MINUTES);
@@ -705,6 +708,7 @@ class Engine with Events implements IEngine {
         relays: request.params!.relays,
         proposer: request.params!.proposer,
         requiredNamespaces: request.params!.requiredNamespaces,
+        optionalNamespaces: request.params!.optionalNamespaces,
         pairingTopic: topic,
       );
       await _setProposal(request.id.toString(), proposal);

@@ -172,6 +172,7 @@ class _HomePageState extends State<HomePage> {
                               if (pairingTopic != null) {
                                 _signClient!
                                     .connect(SessionConnectParams(
+                                  optionalNamespaces: {},
                                   requiredNamespaces: requiredNamespaces,
                                   pairingTopic: pairingTopic.isEmpty
                                       ? null

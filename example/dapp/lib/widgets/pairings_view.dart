@@ -66,7 +66,7 @@ class PairingsView extends StatelessWidget {
                 Navigator.pop(context, '');
               },
               style: TextButton.styleFrom(
-                primary: Colors.white,
+                foregroundColor: Colors.white,
                 textStyle: const TextStyle(fontWeight: FontWeight.w500),
               ),
               child: const Padding(

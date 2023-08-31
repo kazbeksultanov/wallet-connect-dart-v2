@@ -74,11 +74,13 @@ class RequestSessionDelete {
 class RequestSessionPropose {
   final List<RelayerProtocolOptions> relays;
   final ProposalRequiredNamespaces requiredNamespaces;
+  final ProposalRequiredNamespaces optionalNamespaces;
   final ProposalProposer proposer;
 
   RequestSessionPropose({
     required this.relays,
     required this.requiredNamespaces,
+    required this.optionalNamespaces,
     required this.proposer,
   });
 

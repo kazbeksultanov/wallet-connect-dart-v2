@@ -85,6 +85,11 @@ ProposalRequestStruct _$ProposalRequestStructFromJson(
         (k, e) => MapEntry(
             k, ProposalRequiredNamespace.fromJson(e as Map<String, dynamic>)),
       ),
+      optionalNamespaces:
+          (json['optionalNamespaces'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k, ProposalRequiredNamespace.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$ProposalRequestStructToJson(
@@ -94,6 +99,8 @@ Map<String, dynamic> _$ProposalRequestStructToJson(
       'proposer': instance.proposer.toJson(),
       'requiredNamespaces':
           instance.requiredNamespaces.map((k, e) => MapEntry(k, e.toJson())),
+      'optionalNamespaces':
+          instance.optionalNamespaces.map((k, e) => MapEntry(k, e.toJson())),
     };
 
 ProposalStruct _$ProposalStructFromJson(Map<String, dynamic> json) =>
@@ -111,6 +118,11 @@ ProposalStruct _$ProposalStructFromJson(Map<String, dynamic> json) =>
         (k, e) => MapEntry(
             k, ProposalRequiredNamespace.fromJson(e as Map<String, dynamic>)),
       ),
+      optionalNamespaces:
+          (json['optionalNamespaces'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k, ProposalRequiredNamespace.fromJson(e as Map<String, dynamic>)),
+      ),
       pairingTopic: json['pairingTopic'] as String?,
     );
 
@@ -120,6 +132,8 @@ Map<String, dynamic> _$ProposalStructToJson(ProposalStruct instance) {
     'proposer': instance.proposer.toJson(),
     'requiredNamespaces':
         instance.requiredNamespaces.map((k, e) => MapEntry(k, e.toJson())),
+    'optionalNamespaces':
+        instance.optionalNamespaces.map((k, e) => MapEntry(k, e.toJson())),
     'id': instance.id,
     'expiry': instance.expiry,
   };

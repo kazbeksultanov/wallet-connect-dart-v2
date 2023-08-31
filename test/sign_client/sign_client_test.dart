@@ -383,6 +383,7 @@ Future<Connection> testConnectMethod({
 
   final conn = await clientA.connect(SessionConnectParams(
     requiredNamespaces: requiredNamespaces,
+    optionalNamespaces: {},
     pairingTopic: pairingTopic,
   ));
   final clientAConnectLatencyMs = DateTime.now().millisecondsSinceEpoch - start;
