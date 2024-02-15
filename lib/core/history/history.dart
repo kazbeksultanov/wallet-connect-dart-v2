@@ -90,7 +90,7 @@ class JsonRpcHistory with Events implements IJsonRpcHistory {
   }) {
     _isInitialized();
     logger.d('Setting JSON-RPC request history record');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "set",
       'topic': topic,
@@ -115,7 +115,7 @@ class JsonRpcHistory with Events implements IJsonRpcHistory {
   void resolve(Map<String, dynamic> response) {
     _isInitialized();
     logger.d('Updating JSON-RPC response history record');
-    logger.v({'type': "method", 'method': "update", 'response': response});
+    logger.t({'type': "method", 'method': "update", 'response': response});
     if (!records.containsKey(response['id'])) return;
     var record = _getRecord(response['id']);
     if (record.response != null) return;
@@ -131,7 +131,7 @@ class JsonRpcHistory with Events implements IJsonRpcHistory {
   }) {
     _isInitialized();
     logger.d('Getting record');
-    logger.v({'type': "method", 'method': "get", 'topic': topic, 'id': id});
+    logger.t({'type': "method", 'method': "get", 'topic': topic, 'id': id});
     final record = _getRecord(id);
     return record;
   }
@@ -143,7 +143,7 @@ class JsonRpcHistory with Events implements IJsonRpcHistory {
   }) {
     _isInitialized();
     logger.d('Deleting record');
-    logger.v({'type': "method", 'method': "delete", 'id': id});
+    logger.t({'type': "method", 'method': "delete", 'id': id});
     values.forEach((record) {
       if (record.topic == topic) {
         if (id != null && record.id != id) return;
@@ -212,7 +212,7 @@ class JsonRpcHistory with Events implements IJsonRpcHistory {
       }
       _cached = persisted;
       logger.d('Successfully Restored records for $name');
-      logger.v({
+      logger.t({
         'type': "method",
         'method': "_restore",
         'records': values.map((e) => e.toJson()).toList(),
@@ -228,7 +228,7 @@ class JsonRpcHistory with Events implements IJsonRpcHistory {
       const eventName = HistoryEvents.created;
       final record = data as JsonRpcRecord;
       logger.i('Emitting $eventName');
-      logger.v({
+      logger.t({
         'type': "event",
         'event': eventName,
         'record': record.toJson(),
@@ -239,7 +239,7 @@ class JsonRpcHistory with Events implements IJsonRpcHistory {
       const eventName = HistoryEvents.updated;
       final record = data as JsonRpcRecord;
       logger.i('Emitting $eventName');
-      logger.v({
+      logger.t({
         'type': "event",
         'event': eventName,
         'record': record.toJson(),
@@ -251,7 +251,7 @@ class JsonRpcHistory with Events implements IJsonRpcHistory {
       const eventName = HistoryEvents.deleted;
       final record = data as JsonRpcRecord;
       logger.i('Emitting $eventName');
-      logger.v({
+      logger.t({
         'type': "event",
         'event': eventName,
         'record': record.toJson(),

@@ -35,7 +35,7 @@ class Publisher implements IPublisher {
     RelayerPublishOptions? opts,
   }) async {
     logger.d('Publishing Payload');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "publish",
       'params': {
@@ -64,7 +64,7 @@ class Publisher implements IPublisher {
       await _rpcPublish(topic, message, ttl, relay, prompt, tag);
       _onPublish(hash);
       logger.d('Successfully Published Payload');
-      logger.v({
+      logger.t({
         'type': "method",
         'method': "publish",
         'params': {
@@ -103,7 +103,7 @@ class Publisher implements IPublisher {
       paramsToJson: (value) => value.toJson(),
     );
     logger.d('Outgoing Relay Payload');
-    logger.v({
+    logger.t({
       'type': "message",
       'direction': "outgoing",
       'request': request.toJson(),

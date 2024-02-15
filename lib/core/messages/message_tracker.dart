@@ -45,7 +45,7 @@ class MessageTracker implements IMessageTracker {
         }
 
         logger.d('Successfully Restored records for $name');
-        logger.v({
+        logger.t({
           'type': "method",
           'method': "restore",
           'size': messages.length,

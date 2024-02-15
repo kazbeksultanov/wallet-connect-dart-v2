@@ -162,7 +162,7 @@ class Expirer with Events implements IExpirer {
       }
       _cached = persisted!;
       logger.d('Successfully Restored expirations for $name');
-      logger.v({
+      logger.t({
         'type': "method",
         'method': "_restore",
         'expirations': values.map((e) => e.toJson()).toList(),
@@ -214,7 +214,7 @@ class Expirer with Events implements IExpirer {
     events.on(ExpirerEvents.created, (data) {
       const eventName = ExpirerEvents.created;
       logger.i('Emitting $eventName');
-      logger.v({
+      logger.t({
         'type': "event",
         'event': eventName,
         'data': (data as ExpirerEvent?)?.toJson(),
@@ -224,7 +224,7 @@ class Expirer with Events implements IExpirer {
     events.on(ExpirerEvents.expired, (data) {
       const eventName = ExpirerEvents.expired;
       logger.i('Emitting $eventName');
-      logger.v({
+      logger.t({
         'type': "event",
         'event': eventName,
         'data': (data as ExpirerEvent?)?.toJson(),
@@ -234,7 +234,7 @@ class Expirer with Events implements IExpirer {
     events.on(ExpirerEvents.deleted, (data) {
       const eventName = ExpirerEvents.deleted;
       logger.i('Emitting $eventName');
-      logger.v({
+      logger.t({
         'type': "event",
         'event': eventName,
         'data': (data as ExpirerEvent?)?.toJson(),

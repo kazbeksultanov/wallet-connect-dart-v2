@@ -102,7 +102,7 @@ class Store<K, V> implements IStore<K, V> {
   Future<void> set(K key, V value) async {
     _isInitialized();
     logger.d('Setting value');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "set",
       'key': key,
@@ -116,7 +116,7 @@ class Store<K, V> implements IStore<K, V> {
   V get(K key) {
     _isInitialized();
     logger.d('Getting value');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "get",
       'key': key,
@@ -138,7 +138,7 @@ class Store<K, V> implements IStore<K, V> {
     _isInitialized();
     final value = update(_getData(key));
     logger.d('Updating value');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "update",
       'key': key,
@@ -153,7 +153,7 @@ class Store<K, V> implements IStore<K, V> {
     _isInitialized();
     if (!map.containsKey(key)) return;
     logger.d('Deleting value');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "delete",
       'key': key,
@@ -207,7 +207,7 @@ class Store<K, V> implements IStore<K, V> {
       }
       _cached = persisted ?? [];
       logger.d('Successfully Restored value for $name');
-      logger.v({
+      logger.t({
         'type': "method",
         'method': "restore",
         'value': values.map((e) => toJson(e)).toList(),

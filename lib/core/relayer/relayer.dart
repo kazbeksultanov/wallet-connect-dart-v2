@@ -14,9 +14,9 @@ import 'package:wallet_connect_dart_v2/core/subscriber/i_subscriber.dart';
 import 'package:wallet_connect_dart_v2/core/subscriber/subscriber.dart';
 import 'package:wallet_connect_dart_v2/utils/error.dart';
 import 'package:wallet_connect_dart_v2/utils/misc.dart';
+import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/models/models.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/provider/i_json_rpc_provider.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/provider/json_rpc_provider.dart';
-import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/models/models.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/utils/error.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/utils/format.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/utils/validator.dart';
@@ -179,7 +179,7 @@ class Relayer with Events implements IRelayer {
 
   Future<void> _onProviderPayload(dynamic payload) async {
     logger.d('Incoming Relay Payload');
-    logger.v({
+    logger.t({
       'type': "payload",
       'direction': "incoming",
       'payload': payload,
@@ -197,7 +197,7 @@ class Relayer with Events implements IRelayer {
         message: event.data.message,
       );
       logger.d('Emitting Relayer Payload');
-      logger.v({
+      logger.t({
         'type': "event",
         'event': event.id,
         'messageEvent': messageEvent.toJson(),

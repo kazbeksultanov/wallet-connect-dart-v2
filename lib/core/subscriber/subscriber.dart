@@ -94,7 +94,7 @@ class Subscriber with Events implements ISubscriber {
   }) async {
     _isInitialized();
     logger.d('Subscribing Topic');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "subscribe",
       'params': {
@@ -109,7 +109,7 @@ class Subscriber with Events implements ISubscriber {
       final id = await _rpcSubscribe(topic, relay);
       _onSubscribe(id, params);
       logger.d('Successfully Subscribed Topic');
-      logger.v({
+      logger.t({
         'type': "method",
         'method': "subscribe",
         'params': {
@@ -204,7 +204,7 @@ class Subscriber with Events implements ISubscriber {
     RelayerUnsubscribeOptions? opts,
   }) async {
     logger.d('Unsubscribing Topic');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "unsubscribe",
       'params': {
@@ -220,7 +220,7 @@ class Subscriber with Events implements ISubscriber {
           getSdkError(SdkErrorKey.USER_DISCONNECTED, context: '$name, $topic');
       await _onUnsubscribe(topic, id, reason);
       logger.d('Successfully Unsubscribed Topic');
-      logger.v({
+      logger.t({
         'type': "method",
         'method': "unsubscribe",
         'params': {
@@ -244,7 +244,7 @@ class Subscriber with Events implements ISubscriber {
       paramsToJson: (value) => value.toJson(),
     );
     logger.d('Outgoing Relay Payload');
-    logger.v({
+    logger.t({
       'type': "payload",
       'direction': "outgoing",
       'request': request.toJson(),
@@ -265,7 +265,7 @@ class Subscriber with Events implements ISubscriber {
       paramsToJson: (value) => value.toJson(),
     );
     logger.d('Outgoing Relay Payload');
-    logger.v({
+    logger.t({
       'type': "payload",
       'direction': "outgoing",
       'request': request.toJson()
@@ -322,7 +322,7 @@ class Subscriber with Events implements ISubscriber {
   void _setSubscription(String id, SubscriberActive subscription) {
     if (subscriptions.containsKey(id)) return;
     logger.d('Setting subscription');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "setSubscription",
       'id': id,
@@ -339,7 +339,7 @@ class Subscriber with Events implements ISubscriber {
 
   SubscriberActive _getSubscription(String id) {
     logger.d('Getting subscription');
-    logger.v({'type': "method", 'method': "getSubscription", 'id': id});
+    logger.t({'type': "method", 'method': "getSubscription", 'id': id});
     final subscription = subscriptions[id];
     if (subscription == null) {
       final error = getInternalError(
@@ -353,7 +353,7 @@ class Subscriber with Events implements ISubscriber {
 
   void _deleteSubscription(String id, ErrorResponse reason) {
     logger.d('Deleting subscription');
-    logger.v({
+    logger.t({
       'type': "method",
       'method': "deleteSubscription",
       'id': id,
@@ -399,7 +399,7 @@ class Subscriber with Events implements ISubscriber {
       }
       _cached = persisted!;
       logger.d('Successfully Restored subscriptions for $name');
-      logger.v({
+      logger.t({
         'type': "method",
         'method': "restore",
         'subscriptions': values.map((e) => e.toJson()).toList(),
@@ -452,13 +452,13 @@ class Subscriber with Events implements ISubscriber {
     events.on(SubscriberEvents.created, (createdEvent) async {
       const eventName = SubscriberEvents.created;
       logger.i('Emitting $eventName');
-      logger.v({'type': "event", 'event': eventName, 'data': createdEvent});
+      logger.t({'type': "event", 'event': eventName, 'data': createdEvent});
       await _persist();
     });
     events.on(SubscriberEvents.deleted, (deletedEvent) async {
       const eventName = SubscriberEvents.deleted;
       logger.i('Emitting $eventName');
-      logger.v({'type': "event", 'event': eventName, 'data': deletedEvent});
+      logger.t({'type': "event", 'event': eventName, 'data': deletedEvent});
       await _persist();
     });
   }
